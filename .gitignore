@@ -1,0 +1,25 @@
+# File environment
+.env
+*.env
+.env.*
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# IDE/Editor settings
+.vscode/
+.idea/
+
+# Logs dan database
+*.log
+*.sqlite3
+
+# File output sementara
+*.tmp
+*.temp
+
+# File OS
+.DS_Store
+Thumbs.db
