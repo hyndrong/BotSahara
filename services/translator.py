@@ -1,26 +1,32 @@
 from googletrans import Translator
 import logging
+from googletrans.constants import DEFAULT_USER_AGENT
+import random
 
 logger = logging.getLogger(__name__)
 
 class TranslationService:
     def __init__(self):
-        self.translator = Translator(service_urls=[
-            'translate.google.com',
-            'translate.google.co.id'
-        ])
+        self.translator = Translator(
+            service_urls=[
+                'translate.google.com',
+                'translate.google.co.id',
+            ],
+            user_agent=DEFAULT_USER_AGENT,
+            raise_exception=True
+        )
     
-    def detect_language(self, text):
-        try:
-            return self.translator.detect(text).lang
-        except Exception as e:
-            logger.error(f"Error detecting language: {e}")
-            return None
+    def _get_random_service_url(self):
+        return random.choice(self.translator.service_urls)
     
     def translate(self, text, source, target):
         try:
-            result = self.translator.translate(text, src=source, dest=target)
-            return result.text
+            return self.translator.translate(
+                text,
+                src=source,
+                dest=target,
+                service_url=self._get_random_service_url()
+            ).text
         except Exception as e:
             logger.error(f"Translation error: {e}")
             return None
