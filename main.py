@@ -3,6 +3,12 @@ from config import TELEGRAM_TOKEN
 from handlers.command_handler import setup_command_handlers
 from handlers.message_handler import setup_message_handlers
 import logging
+from flask import Flask
+app = Flask(__name__)
+
+@app.route('/health')
+def health():
+    return "OK", 200
 
 # Setup logging
 logging.basicConfig(
